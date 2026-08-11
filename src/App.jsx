@@ -7,6 +7,8 @@ import PropertyDetails from './pages/PropertyDetails'
 import AboutStJohn from './pages/AboutStJohn'
 import AboutUs from './pages/AboutUs'
 import SalesHistory from './pages/SalesHistory'
+import Blogs from './pages/Blogs'
+import BlogDetails from './pages/BlogDetails'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/about" element={<AboutStJohn />} />
         <Route path="/about-340-realestate-team" element={<AboutUs />} />
         <Route path="/saleshistory" element={<SalesHistory />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/:slug" element={<BlogDetails />} />
       </Routes>
     </Router>
   )

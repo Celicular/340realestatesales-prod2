@@ -23,6 +23,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Exclusive Properties', href: '/properties' },
     { name: 'MLS Search', href: '/mls' },
+    { name: 'Journal', href: '/blogs' },
     { name: 'About St John', href: '/about' },
     { name: 'About Us', href: '/about-340-realestate-team' },
     { name: 'Sales History', href: '/saleshistory' }
@@ -63,12 +64,12 @@ const Navbar = () => {
         </motion.div>
 
         {/* Navigation Links */}
-        <div className="hidden xl:flex items-center gap-10">
+        <div className="hidden xl:flex items-center gap-5 2xl:gap-10">
           {navLinks.map((link) => (
             <div key={link.name} className="relative group">
               <Link 
                 to={link.href} 
-                className={`text-[10px] uppercase tracking-[0.2em] font-bold transition-all duration-300 flex items-center gap-1 ${navItemColor}`}
+                className={`text-[9px] 2xl:text-[10px] uppercase tracking-[0.2em] font-bold transition-all duration-300 flex items-center gap-1 whitespace-nowrap ${navItemColor}`}
               >
                 {link.name}
               </Link>
@@ -78,7 +79,7 @@ const Navbar = () => {
         </div>
 
         {/* Right Side Info */}
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 xl:gap-6 2xl:gap-8 flex-shrink-0">
           <div className="hidden lg:flex items-center gap-3 text-accent transition-colors">
              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isSolid ? 'bg-accent/10' : 'bg-white/10'}`}>
                 <Phone className="w-4 h-4" />
