@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Instagram, Facebook, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react'
+import { Instagram, Facebook, Phone, Mail, MapPin, ArrowUpRight, Twitter, Youtube, MessageCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
@@ -22,12 +22,21 @@ const Footer = () => {
                 </div>
               </Link>
             </div>
-            <div className="flex gap-6">
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
+            <div className="flex gap-4">
+              <a href="https://www.facebook.com/340realestateco/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
+                <Facebook className="w-4 h-4 text-white/40 group-hover:text-white" />
+              </a>
+              <a href="https://www.instagram.com/340realestateco/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
                 <Instagram className="w-4 h-4 text-white/40 group-hover:text-white" />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
-                <Facebook className="w-4 h-4 text-white/40 group-hover:text-white" />
+              <a href="https://x.com/340realestateco" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
+                <Twitter className="w-4 h-4 text-white/40 group-hover:text-white" />
+              </a>
+              <a href="https://www.youtube.com/channel/UCXXXXXX" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
+                <Youtube className="w-4 h-4 text-white/40 group-hover:text-white" />
+              </a>
+              <a href="https://wa.me/13406436068" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
+                <MessageCircle className="w-4 h-4 text-white/40 group-hover:text-white" />
               </a>
             </div>
           </div>
