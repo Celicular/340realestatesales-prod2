@@ -50,13 +50,14 @@ const AboutStJohn = () => {
           <div className="absolute inset-0 bg-black/50" />
         </div>
         <div className="relative z-10 text-center text-white px-6 max-w-5xl">
-          <motion.h4 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-accent text-[12px] font-luxury-caps mb-6 tracking-[0.5em]"
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-accent text-[16px] font-luxury-caps mb-6 tracking-[0.5em]"
           >
-            A Journey Through History & Nature
-          </motion.h4>
+            OUR ISLAND HOME Journey Through History & Nature
+          </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

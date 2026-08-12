@@ -60,7 +60,7 @@ export default function Blogs() {
                animate={{ opacity: 1, y: 0 }}
                transition={{ duration: 0.8 }}
             >
-              <h4 className="text-accent text-[12px] font-luxury-caps mb-6">Discover St. John</h4>
+              <h4 className="text-accent text-[16px] font-luxury-caps mb-6">Discover St. John</h4>
               <h1 className="text-5xl md:text-7xl font-heading text-white uppercase tracking-tighter leading-[0.9] mb-8">
                 Our Journal <br /> & Insights
               </h1>

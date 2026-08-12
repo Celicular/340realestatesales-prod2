@@ -15,7 +15,7 @@ const SectionHeading = ({ subtitle, title, alignment = 'center', dark = false })
     <motion.h4 
       initial={{ opacity: 0, x: -10 }}
       whileInView={{ opacity: 1, x: 0 }}
-      className="text-accent text-[12px] font-luxury-caps"
+      className="text-accent text-[16px] font-luxury-caps"
     >
       {subtitle}
     </motion.h4>
@@ -246,7 +246,7 @@ const AboutSectionContent = () => {
               MEET THE TEAM
             </button>
             <button 
-              onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => navigate('/contact')}
               className="px-14 py-6 border-2 border-white/20 text-white text-[11px] font-luxury-caps hover:bg-white hover:text-primary transition-all cursor-pointer"
             >
               CONTACT US

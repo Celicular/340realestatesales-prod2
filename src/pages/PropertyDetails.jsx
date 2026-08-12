@@ -270,7 +270,10 @@ const PropertyDetails = () => {
                         <span className="text-sm font-medium">340realestateco@gmail.com</span>
                      </a>
                   </div>
-                  <button className="w-full py-6 bg-primary text-white text-[11px] font-luxury-caps hover:bg-black transition-all group overflow-hidden relative">
+                  <button 
+                     onClick={() => navigate('/contact')}
+                     className="w-full py-6 bg-primary text-white text-[11px] font-luxury-caps hover:bg-black transition-all group overflow-hidden relative cursor-pointer"
+                  >
                      <span className="relative z-10">Contact Tammy Donnelly</span>
                      <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
                   </button>

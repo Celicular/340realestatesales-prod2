@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, XIcon as X, ArrowUpRight, Phone, Instagram, Facebook, Twitter, Youtube, MessageCircle } from 'lucide-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ isTransparent = true }) => {
   const navigate = useNavigate()
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -30,14 +30,14 @@ const Navbar = () => {
   ]
 
   // Determine styles based on scroll AND page type
-  const isSolid = isScrolled || isLightPage;
+  const isSolid = isScrolled || isLightPage || !isTransparent;
   const textColor = isSolid ? 'text-primary' : 'text-white';
   const navItemColor = isSolid ? 'text-primary/70 hover:text-accent' : 'text-white/80 hover:text-white';
   const logoTextColor = isSolid ? 'text-primary' : 'text-white';
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out ${
-      isSolid ? 'bg-white/95 backdrop-blur-xl border-b border-black/5 py-3 shadow-2xl' : 'bg-transparent py-5'
+      isSolid ? `${isTransparent ? 'bg-white/95 backdrop-blur-xl' : 'bg-white'} border-b border-black/5 py-3 shadow-2xl` : 'bg-transparent py-5'
     }`}>
       <div className="w-full px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
@@ -111,13 +111,13 @@ const Navbar = () => {
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.1 }}
-            className="fixed inset-0 bg-primary/95 backdrop-blur-3xl text-white z-[100] p-12 flex flex-col justify-between"
+            className="fixed inset-0 bg-primary/95 backdrop-blur-3xl text-white z-[100] p-8 md:p-12 flex flex-col justify-between"
           >
             <div className="flex justify-between items-center">
-               <img src="/assets/logo.png" className="h-12 w-auto" alt="Logo" />
-               <X className="w-10 h-10 cursor-pointer text-accent" onClick={() => setIsMobileMenuOpen(false)} />
+                <img src="/assets/logo.png" className="h-12 w-auto" alt="Logo" />
+                <X className="w-10 h-10 cursor-pointer text-accent" onClick={() => setIsMobileMenuOpen(false)} />
             </div>
-            <div className="space-y-10 flex flex-col items-center">
+            <div className="space-y-8 flex flex-col items-center my-auto py-8">
               {navLinks.map((item, i) => (
                 <motion.div
                   key={item.name}
@@ -127,7 +127,7 @@ const Navbar = () => {
                 >
                   <Link 
                     to={item.href}
-                    className="block text-5xl md:text-7xl font-heading italic lowercase hover:text-accent transition-all text-center"
+                    className="block text-4xl md:text-6xl font-heading italic hover:text-accent transition-all text-center"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -135,29 +135,29 @@ const Navbar = () => {
                 </motion.div>
               ))}
             </div>
-            <div className="pt-12 border-t border-white/10 flex justify-between items-end">
-               <div className="space-y-4">
-                  <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">Inquiries</p>
-                  <p className="text-3xl font-heading text-accent tracking-tighter uppercase leading-none">Tammy Donnelly</p>
-                  <p className="text-xl font-bold">+1 340-643-6068</p>
-               </div>
-               <div className="flex gap-4">
-                  <a href="https://www.facebook.com/340realestateco/" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                     <Facebook className="w-5 h-5 text-white/70" />
-                  </a>
-                  <a href="https://www.instagram.com/340realestateco/" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                     <Instagram className="w-5 h-5 text-white/70" />
-                  </a>
-                  <a href="https://x.com/340realestateco" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                     <Twitter className="w-5 h-5 text-white/70" />
-                  </a>
-                  <a href="https://www.youtube.com/channel/UCXXXXXX" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                     <Youtube className="w-5 h-5 text-white/70" />
-                  </a>
-                  <a href="https://wa.me/13406436068" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                     <MessageCircle className="w-5 h-5 text-white/70" />
-                  </a>
-               </div>
+            <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center sm:items-end gap-6">
+                <div className="space-y-2 text-center sm:text-left">
+                   <p className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-bold">Inquiries</p>
+                   <p className="text-2xl font-heading text-accent tracking-tighter uppercase leading-none">Tammy Donnelly</p>
+                   <p className="text-lg font-bold">+1 340-643-6068</p>
+                </div>
+                <div className="flex gap-3 flex-wrap justify-center">
+                   <a href="https://www.facebook.com/340realestateco/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
+                      <Facebook className="w-4 h-4 text-white/70" />
+                   </a>
+                   <a href="https://www.instagram.com/340realestateco/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
+                      <Instagram className="w-4 h-4 text-white/70" />
+                   </a>
+                   <a href="https://x.com/340realestateco" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
+                      <Twitter className="w-4 h-4 text-white/70" />
+                   </a>
+                   <a href="https://www.youtube.com/channel/UCXXXXXX" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
+                      <Youtube className="w-4 h-4 text-white/70" />
+                   </a>
+                   <a href="https://wa.me/13406436068" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
+                      <MessageCircle className="w-4 h-4 text-white/70" />
+                   </a>
+                </div>
             </div>
           </motion.div>
         )}

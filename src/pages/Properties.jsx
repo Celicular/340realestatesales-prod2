@@ -117,7 +117,7 @@ const Properties = () => {
 
   return (
     <div className="bg-[#FAF9F6] min-h-screen">
-      <Navbar />
+      <Navbar isTransparent={false} />
       
       <section className="pt-32 md:pt-40 pb-16 md:pb-20 px-6 bg-primary text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,rgba(197,160,89,0.15),transparent)] pointer-events-none" />

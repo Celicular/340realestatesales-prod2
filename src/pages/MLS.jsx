@@ -114,7 +114,7 @@ const MLS = () => {
 
   return (
     <div className="bg-surface min-h-screen">
-      <Navbar />
+      <Navbar isTransparent={false} />
       
       <section className="pt-32 md:pt-40 pb-16 md:pb-20 px-6 bg-primary text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">

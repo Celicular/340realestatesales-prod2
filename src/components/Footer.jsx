@@ -47,7 +47,7 @@ const Footer = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div className="space-y-2">
                 <p className="text-[9px] font-luxury-caps text-white/30 tracking-[0.2em] font-black uppercase">Email</p>
-                <a href="mailto:340realestateco@gmail.com" className="text-[16px] font-heading italic hover:text-accent transition-colors block">340realestateco@gmail.com</a>
+                <a href="mailto:340realestateco@gmail.com" className="text-[20px] font-heading italic hover:text-accent transition-colors block">340realestateco@gmail.com</a>
               </div>
               <div className="space-y-2">
                 <p className="text-[9px] font-luxury-caps text-white/30 tracking-[0.2em] font-black uppercase">Address</p>
@@ -98,8 +98,8 @@ const Footer = () => {
             © 2026 340 REAL ESTATE SALES. ALL RIGHTS RESERVED.
           </p>
           <div className="flex gap-10">
-            <a href="#" className="text-[9px] font-luxury-caps text-white/20 hover:text-white transition-colors tracking-widest">Privacy Policy</a>
-            <a href="#" className="text-[9px] font-luxury-caps text-white/20 hover:text-white transition-colors tracking-widest">Terms of Service</a>
+            <Link to="/privacy-policy" className="text-[9px] font-luxury-caps text-white/20 hover:text-white transition-colors tracking-widest">Privacy Policy</Link>
+            <Link to="/terms-and-conditions" className="text-[9px] font-luxury-caps text-white/20 hover:text-white transition-colors tracking-widest">Terms of Service</Link>
           </div>
         </div>
       </div>

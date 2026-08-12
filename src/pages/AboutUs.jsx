@@ -7,7 +7,7 @@ import { CheckCircle2, Award, Users, MapPin, Search } from 'lucide-react'
 const AboutUs = () => {
   return (
     <div className="bg-surface min-h-screen">
-      <Navbar />
+      <Navbar isTransparent={false} />
 
       {/* Hero Section - Reduced height and top-aligned image */}
       <section className="relative h-[75vh] flex items-center justify-center overflow-hidden">
