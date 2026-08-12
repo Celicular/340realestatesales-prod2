@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 // Using Vite proxy to bypass CORS
 // Defined in vite.config.js
-const MLS_BASE_URL = '/api-mls';
-const INTERNAL_BASE_URL = '/api-internal';
+const INTERNAL_BASE_URL = 'https://340realestate.com/api';
+const MLS_BASE_URL = 'https://api.340realestate.com';
 
 const fixImageUrl = (url) => {
   if (!url) return null;
@@ -32,13 +32,13 @@ export const fetchInternalProperties = async (params = {}) => {
     const query = new URLSearchParams(params).toString();
     const response = await fetch(`${INTERNAL_BASE_URL}/properties?${query}`);
     const data = await response.json();
-    
+
     // Fix image URLs for internal properties
     const properties = (data.properties || []).map(p => ({
       ...p,
       images: (p.images || []).map(fixImageUrl)
     }));
-    
+
     return properties;
   } catch (error) {
     console.error('Error fetching internal properties:', error);

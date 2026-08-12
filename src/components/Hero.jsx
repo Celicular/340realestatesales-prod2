@@ -63,7 +63,7 @@ const Hero = () => {
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[10vw] md:text-[7vw] font-heading font-black leading-[0.8] tracking-tighter uppercase drop-shadow-2xl"
+            className="text-[8vw] md:text-[5vw] font-heading font-black leading-[0.8] tracking-tighter uppercase drop-shadow-2xl pb-4"
           >
             ST JOHN, USVI
           </motion.h2>

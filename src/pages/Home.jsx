@@ -23,7 +23,7 @@ const SectionHeading = ({ subtitle, title, alignment = 'center', dark = false })
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`text-4xl xs:text-5xl md:text-8xl font-heading leading-[0.85] tracking-tighter uppercase ${dark ? 'text-white' : 'text-primary'}`}
+      className={`text-3xl xs:text-4xl md:text-7xl font-heading leading-[0.85] tracking-tighter uppercase ${dark ? 'text-white' : 'text-primary'}`}
     >
       {title}
     </motion.h2>

@@ -21,9 +21,6 @@ const Footer = () => {
                   </div>
                 </div>
               </Link>
-              <p className="text-white/40 text-[14px] leading-relaxed max-w-sm italic">
-                &quot;Information on this site is believed to be accurate but not guaranteed.&quot;
-              </p>
             </div>
             <div className="flex gap-6">
               <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group">
