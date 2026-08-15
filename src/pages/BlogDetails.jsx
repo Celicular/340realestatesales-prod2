@@ -105,7 +105,21 @@ export default function BlogDetails() {
             </div>
             <div className="w-1 h-1 bg-accent rounded-full" />
             <div className="flex items-center gap-3">
-              <Eye className="w-4 h-4 text-accent" /> {Math.max(2, blocks.length)} MIN READ
+              <Eye className="w-4 h-4 text-accent" /> {(() => {
+                let fullText = (blog.title || '') + ' ' + (blog.excerpt || '') + ' ';
+                if (Array.isArray(blog.content_blocks)) {
+                  blog.content_blocks.forEach((b) => {
+                    if (typeof b === 'string') fullText += b + ' ';
+                    else if (b && typeof b === 'object') {
+                      fullText += (b.value || b.text || b.content || '') + ' ';
+                    }
+                  });
+                }
+                const wordCount = fullText.trim().split(/\s+/).filter(Boolean).length;
+                const calcMins = Math.ceil(wordCount / 220);
+                const estimatedMins = Math.max(2, Math.min(calcMins, 3));
+                return `${estimatedMins} MIN READ`;
+              })()}
             </div>
           </div>
         </div>

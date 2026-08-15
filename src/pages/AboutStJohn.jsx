@@ -35,6 +35,39 @@ const AboutStJohn = () => {
     "Rendezvous", "Boatman Point", "Klein Bay"
   ]
 
+  const quartersData = [
+    {
+      name: "Cruz Bay Quarter",
+      tag: "West Island & Main Commercial Hub",
+      estates: ["Cruz Bay Town", "Great Cruz Bay", "Chocolate Hole", "Enighed", "Contant", "Gifft Hill", "Rendezvous Bay", "Bethany"],
+      desc: "The vibrant heartbeat of St. John featuring ferry access, fine dining, boutique shopping, and premier hillside residences with panoramic sunset views toward St. Thomas."
+    },
+    {
+      name: "Maho Bay Quarter",
+      tag: "North Shore & World-Class Beaches",
+      estates: ["Caneel Bay", "Peter Bay", "Cinnamon Bay", "Maho Bay", "Francis Bay", "Annaberg", "Denis Bay"],
+      desc: "Home to the world's most acclaimed white-sand beaches, prestigious luxury gated communities like Peter Bay, and protected National Park shorelines."
+    },
+    {
+      name: "Coral Bay Quarter",
+      tag: "East End Harbor & Bohemian Charm",
+      estates: ["Coral Bay Harbor", "Upper Carolina", "Lower Carolina", "Bordeaux Mountain", "Emmaus", "Fortsberg", "Calabash Boom"],
+      desc: "Celebrated for its authentic Caribbean sailing culture, dramatic elevations along Bordeaux Mountain, and breathtaking vistas of the British Virgin Islands."
+    },
+    {
+      name: "Reef Bay Quarter",
+      tag: "South Shore & Nature Preserves",
+      estates: ["Fish Bay", "Reef Bay", "Klein Bay", "Monte Bay", "Chocolate Hole East"],
+      desc: "Tranquil coastal living along the South Shore with direct access to hiking trails, historic petroglyphs, and serene waterfront properties."
+    },
+    {
+      name: "East End Quarter",
+      tag: "Pristine Peninsula & Tranquility",
+      estates: ["Hansen Bay", "Privateer Bay", "Haulover Bay", "Long Bay", "Round Bay", "East End Estates"],
+      desc: "The peaceful eastern tip of St. John, offering unrivaled privacy, dramatic cliffside panoramas, and pristine waters overlooking Tortola and Norman Island."
+    }
+  ]
+
   return (
     <div className="bg-surface min-h-screen">
       <Navbar />
@@ -136,10 +169,10 @@ const AboutStJohn = () => {
            </div>
            <div className="lg:w-1/2 grid grid-cols-2 gap-8 sticky top-32">
               <div className="aspect-[4/5] bg-primary/10 rounded-2xl overflow-hidden shadow-2xl">
-                 <img src="https://images.unsplash.com/photo-1548544149-4835e62ee5b3" className="w-full h-full object-cover" alt="Historical St. John" />
+                 <img src="/assets/testimo.jpg" className="w-full h-full object-cover" alt="Historical St. John" />
               </div>
               <div className="aspect-[4/5] bg-primary/10 rounded-2xl overflow-hidden shadow-2xl mt-16">
-                 <img src="https://images.unsplash.com/photo-1518197146369-011599475eaa" className="w-full h-full object-cover" alt="Island Nature" />
+                 <img src="/assets/slh2.jpeg" className="w-full h-full object-cover" alt="Island Nature" />
               </div>
            </div>
         </div>
@@ -232,52 +265,94 @@ const AboutStJohn = () => {
       {/* Maps Section */}
       <section className="py-32 px-6 bg-white">
         <div className="max-w-[1500px] mx-auto">
-           <div className="text-center mb-20 space-y-6">
+           <div className="text-center mb-16 space-y-6">
               <h2 className="text-5xl md:text-7xl font-heading text-primary uppercase tracking-tighter">Island Maps</h2>
-              <div className="flex justify-center gap-10">
+              <div className="flex justify-center gap-4 md:gap-10 flex-wrap">
+                <button 
+                  onClick={() => setActiveMap('zones')}
+                  className={`text-[12px] font-black uppercase tracking-widest pb-2 border-b-2 transition-all cursor-pointer ${activeMap === 'zones' ? 'border-accent text-primary' : 'border-transparent text-primary/30 hover:text-primary'}`}
+                >
+                  Property Zones & Quarters
+                </button>
                 <button 
                   onClick={() => setActiveMap('illustrated')}
-                  className={`text-[12px] font-black uppercase tracking-widest pb-2 border-b-2 transition-all ${activeMap === 'illustrated' ? 'border-accent text-primary' : 'border-transparent text-primary/30 hover:text-primary'}`}
+                  className={`text-[12px] font-black uppercase tracking-widest pb-2 border-b-2 transition-all cursor-pointer ${activeMap === 'illustrated' ? 'border-accent text-primary' : 'border-transparent text-primary/30 hover:text-primary'}`}
                 >
                   Illustrated Map
                 </button>
                 <button 
-                  onClick={() => setActiveMap('zones')}
-                  className={`text-[12px] font-black uppercase tracking-widest pb-2 border-b-2 transition-all ${activeMap === 'zones' ? 'border-accent text-primary' : 'border-transparent text-primary/30 hover:text-primary'}`}
-                >
-                  Property Zones
-                </button>
-                <button 
                   onClick={() => setActiveMap('google')}
-                  className={`text-[12px] font-black uppercase tracking-widest pb-2 border-b-2 transition-all ${activeMap === 'google' ? 'border-accent text-primary' : 'border-transparent text-primary/30 hover:text-primary'}`}
+                  className={`text-[12px] font-black uppercase tracking-widest pb-2 border-b-2 transition-all cursor-pointer ${activeMap === 'google' ? 'border-accent text-primary' : 'border-transparent text-primary/30 hover:text-primary'}`}
                 >
-                  Google Map
+                  Interactive Google Map
                 </button>
               </div>
            </div>
 
-           <div className="aspect-video w-full bg-surface rounded-3xl overflow-hidden shadow-2xl border border-black/5 relative group">
-              {activeMap === 'illustrated' && (
-                <img src="https://i.pinimg.com/736x/1e/bb/ce/1ebbcec1215e56918f8940a310f6ee33.jpg" className="w-full h-full object-cover" alt="Illustrated Map" />
-              )}
-              {activeMap === 'zones' && (
-                <img src="https://340realestatestjohn.com/wp-content/uploads/2024/07/340_MAP_TEMPLATE_V4.jpg" className="w-full h-full object-contain bg-white p-8" alt="Property Zones Map" />
-              )}
-              {activeMap === 'google' && (
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60613.11195655761!2d-64.7891722421327!3d18.33440781702581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c050fb20e980309%3A0xc3f587d46c64600e!2sSaint%20John!5e0!3m2!1sen!2sus!4v1709400000000!5m2!1sen!2sus" 
-                  className="w-full h-full border-0" 
-                  allowFullScreen="" 
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              )}
-              <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                 <p className="text-white text-[10px] font-luxury-caps tracking-widest">Interactive Island Intelligence</p>
-              </div>
+           <div className="space-y-12">
+             <div className="aspect-video w-full bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-black/5 relative group flex items-center justify-center">
+                {activeMap === 'illustrated' && (
+                  <img 
+                    src="https://i.pinimg.com/736x/1e/bb/ce/1ebbcec1215e56918f8940a310f6ee33.jpg?utm_source=chatgpt.com" 
+                    className="w-full h-full object-cover" 
+                    alt="Illustrated Map" 
+                    onError={(e) => { e.target.src = "https://upload.wikimedia.org/wikipedia/commons/e/eb/NPS_virgin-islands-st-john-map.jpg"; }}
+                  />
+                )}
+                {activeMap === 'zones' && (
+                  <div className="w-full h-full relative overflow-hidden bg-slate-950 flex items-center justify-center">
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/e/eb/NPS_virgin-islands-st-john-map.jpg" 
+                      className="w-full h-full object-contain" 
+                      alt="Property Zones Map" 
+                    />
+                    <div className="absolute top-6 left-6 bg-primary/90 backdrop-blur-md text-white p-4 rounded-xl border border-white/10 max-w-xs shadow-xl hidden md:block">
+                      <p className="text-[10px] font-luxury-caps text-accent font-bold tracking-widest uppercase">Official USVI Geography</p>
+                      <h4 className="text-sm font-bold text-white mt-1">5 Quarters & Property Zones</h4>
+                      <p className="text-xs text-white/70 mt-1 leading-relaxed">Explore the 5 administrative quarters and key subdivisions below.</p>
+                    </div>
+                  </div>
+                )}
+                {activeMap === 'google' && (
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60613.11195655761!2d-64.7891722421327!3d18.33440781702581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c050fb20e980309%3A0xc3f587d46c64600e!2sSaint%20John!5e0!3m2!1sen!2sus!4v1709400000000!5m2!1sen!2sus" 
+                    className="w-full h-full border-0" 
+                    allowFullScreen="" 
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="St. John Google Map"
+                  ></iframe>
+                )}
+                <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-center justify-between text-white">
+                   <p className="text-[10px] font-luxury-caps tracking-widest font-bold">St. John, U.S. Virgin Islands Real Estate Geography</p>
+                   <span className="text-[10px] font-mono text-white/70">18.3381° N, 64.7306° W</span>
+                </div>
+             </div>
+
+             {/* Interactive Quarters Breakdown (Displayed with Property Zones) */}
+             {activeMap === 'zones' && (
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+                 {quartersData.map((q, idx) => (
+                   <div key={idx} className="p-8 bg-slate-50 border-2 border-slate-200 rounded-2xl hover:border-accent transition-all group shadow-sm">
+                     <span className="text-[10px] font-luxury-caps text-accent font-bold tracking-widest uppercase block mb-1">Quarter 0{idx + 1}</span>
+                     <h4 className="text-xl font-heading text-slate-900 group-hover:text-accent transition-colors uppercase tracking-tight">{q.name}</h4>
+                     <p className="text-xs font-bold text-slate-600 mb-3">{q.tag}</p>
+                     <p className="text-xs text-slate-600 leading-relaxed mb-4">{q.desc}</p>
+                     <div className="pt-3 border-t border-slate-200/80">
+                       <p className="text-[10px] font-luxury-caps text-slate-500 font-bold uppercase tracking-wider mb-2">Key Estates & Subdivisions:</p>
+                       <div className="flex flex-wrap gap-1.5">
+                         {q.estates.map((est, i) => (
+                           <span key={i} className="text-[10px] bg-white border border-slate-300 px-2 py-0.5 rounded text-slate-800 font-medium">{est}</span>
+                         ))}
+                       </div>
+                     </div>
+                   </div>
+                 ))}
+               </div>
+             )}
+           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     <Footer />
   </div>

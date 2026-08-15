@@ -17,6 +17,14 @@ const Properties = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const normalizeProperty = (p) => {
+    const rawType = (p.property_type || p.type || p.PropertyType || '').toString().trim();
+    const rawSub = (p.subcategory || p.SubCategory || p.category || (rawType.toLowerCase().includes('land') ? 'Land' : 'Residential')).toString().trim();
+    
+    // Capitalize for clean display heading
+    const displaySubcategory = rawSub
+      ? rawSub.charAt(0).toUpperCase() + rawSub.slice(1)
+      : 'Other';
+
     return {
       id: p.id,
       title: p.title,
@@ -27,9 +35,11 @@ const Properties = () => {
       beds: p.beds || '0',
       baths: p.baths || '0',
       sqft: p.square_feet || 'N/A',
-      type: p.property_type, 
-      subcategory: (p.subcategory || 'Other').toLowerCase(),
-      status: p.listing_type || 'Active',
+      type: rawType.toLowerCase(),
+      displayType: rawType || 'Property',
+      subcategory: displaySubcategory,
+      rawSubcategory: rawSub.toLowerCase(),
+      status: p.listing_type || p.status || 'Active',
       slug: p.slug,
       source: 'internal'
     }
@@ -40,8 +50,11 @@ const Properties = () => {
       setLoading(true)
       try {
         const internalRaw = await fetchInternalProperties()
-        // Filter out commercial
-        const filteredRaw = internalRaw.filter(p => p.property_type?.toLowerCase() !== 'commercial')
+        // Filter out commercial (case-insensitive & trim)
+        const filteredRaw = internalRaw.filter(p => {
+          const type = (p.property_type || p.type || p.PropertyType || '').toString().toLowerCase().trim();
+          return !type.includes('commercial');
+        })
         const normalized = filteredRaw.map(normalizeProperty)
         setProperties(normalized)
       } catch (error) {
@@ -58,27 +71,54 @@ const Properties = () => {
     
     // Tab Filtering
     if (activeTab === 'sold') {
-      result = result.filter(p => p.status?.toLowerCase() === 'sold')
+      result = result.filter(p => (p.status || '').toString().toLowerCase().trim() === 'sold')
     } else {
       // Exclude Sold from other tabs
-      result = result.filter(p => p.status?.toLowerCase() !== 'sold')
+      result = result.filter(p => (p.status || '').toString().toLowerCase().trim() !== 'sold')
       
       if (activeTab === 'residential') {
         result = result.filter(p => {
-          const type = p.type?.toLowerCase() || '';
-          return type === 'residential' || type === 'house' || type === 'villa' || type === 'cottage' || type === 'combo';
+          const type = (p.type || '').toLowerCase().trim();
+          const sub = (p.rawSubcategory || '').toLowerCase().trim();
+          return type.includes('residential') || 
+                 type.includes('res') ||
+                 type.includes('house') || 
+                 type.includes('villa') || 
+                 type.includes('cottage') || 
+                 type.includes('combo') ||
+                 type.includes('home') ||
+                 type.includes('condo') ||
+                 type.includes('dwelling') ||
+                 type.includes('estate') ||
+                 sub.includes('residential') ||
+                 sub.includes('villa') ||
+                 sub.includes('home') ||
+                 sub.includes('condo') ||
+                 (!type.includes('land') && !sub.includes('land'));
         })
       } else if (activeTab === 'land') {
-        result = result.filter(p => p.type?.toLowerCase() === 'land')
+        result = result.filter(p => {
+          const type = (p.type || '').toLowerCase().trim();
+          const sub = (p.rawSubcategory || '').toLowerCase().trim();
+          return type === 'land' || 
+                 type.includes('land') || 
+                 type.includes('lot') || 
+                 type.includes('parcel') || 
+                 type.includes('acre') ||
+                 sub.includes('land') ||
+                 sub.includes('lot');
+        })
       }
     }
 
     // Search Query
     if (searchQuery) {
-      const q = searchQuery.toLowerCase()
+      const q = searchQuery.toLowerCase().trim()
       result = result.filter(p => 
         p.title?.toLowerCase().includes(q) ||
-        p.location?.toLowerCase().includes(q)
+        p.location?.toLowerCase().includes(q) ||
+        p.type?.toLowerCase().includes(q) ||
+        p.subcategory?.toLowerCase().includes(q)
       )
     }
 

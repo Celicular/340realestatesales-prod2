@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, XIcon as X, ArrowUpRight, Phone, Instagram, Facebook, Twitter, Youtube, MessageCircle } from 'lucide-react'
+import { Menu, XIcon as X, ArrowUpRight, Phone } from 'lucide-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 const Navbar = ({ isTransparent = true }) => {
@@ -22,11 +22,11 @@ const Navbar = ({ isTransparent = true }) => {
 
   const navLinks = [
     { name: 'Exclusive Properties', href: '/properties' },
-    { name: 'MLS Search', href: '/mls' },
     { name: 'Journal', href: '/blogs' },
     { name: 'About St John', href: '/about' },
     { name: 'About Us', href: '/about-340-realestate-team' },
-    { name: 'Sales History', href: '/saleshistory' }
+    { name: 'Sales History', href: '/saleshistory' },
+    { name: 'Contact', href: '/contact' }
   ]
 
   // Determine styles based on scroll AND page type
@@ -141,21 +141,9 @@ const Navbar = ({ isTransparent = true }) => {
                    <p className="text-2xl font-heading text-accent tracking-tighter uppercase leading-none">Tammy Donnelly</p>
                    <p className="text-lg font-bold">+1 340-643-6068</p>
                 </div>
-                <div className="flex gap-3 flex-wrap justify-center">
-                   <a href="https://www.facebook.com/340realestateco/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                      <Facebook className="w-4 h-4 text-white/70" />
-                   </a>
-                   <a href="https://www.instagram.com/340realestateco/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                      <Instagram className="w-4 h-4 text-white/70" />
-                   </a>
-                   <a href="https://x.com/340realestateco" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                      <Twitter className="w-4 h-4 text-white/70" />
-                   </a>
-                   <a href="https://www.youtube.com/channel/UCXXXXXX" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                      <Youtube className="w-4 h-4 text-white/70" />
-                   </a>
-                   <a href="https://wa.me/13406436068" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 transition-colors">
-                      <MessageCircle className="w-4 h-4 text-white/70" />
+                <div className="text-center sm:text-right">
+                   <a href="mailto:340realestateco@gmail.com" className="text-xs font-luxury-caps text-accent font-bold tracking-widest hover:text-white transition-colors">
+                     340realestateco@gmail.com
                    </a>
                 </div>
             </div>

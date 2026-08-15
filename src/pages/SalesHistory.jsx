@@ -6,38 +6,38 @@ import salesData from '../../sales_data.json'
 import { TrendingUp, Home, Map, Building2, ExternalLink, Calendar } from 'lucide-react'
 
 const SalesHistory = () => {
-  const stats2024 = [
+  const stats2025 = [
     {
       category: "HOMES",
       icon: <Home className="w-8 h-8" />,
-      sold: "43 Sold",
+      sold: `${salesData.Homes?.[0]?.sold || 48} Sold`,
       stats: [
-        { label: "Lowest", val: "$512,000" },
-        { label: "Highest", val: "$12,500,000" },
-        { label: "Average", val: "$3,432,000" },
-        { label: "Total Volume", val: "$127,527,000" }
+        { label: "Lowest", val: salesData.Homes?.[0]?.low || "$255,000" },
+        { label: "Highest", val: salesData.Homes?.[0]?.high || "$10,500,000" },
+        { label: "Average", val: salesData.Homes?.[0]?.avg || "$5,377,500" },
+        { label: "Total Volume", val: salesData.Homes?.[0]?.total || "$78,302,500" }
       ]
     },
     {
       category: "LAND",
       icon: <Map className="w-8 h-8" />,
-      sold: "36 Sold",
+      sold: `${salesData.Land?.[0]?.sold || 23} Sold`,
       stats: [
-        { label: "Lowest", val: "$110,000" },
-        { label: "Highest", val: "$2,500,000" },
-        { label: "Average", val: "$513,000" },
-        { label: "Total Volume", val: "$18,387,000" }
+        { label: "Lowest", val: salesData.Land?.[0]?.low || "$37,500" },
+        { label: "Highest", val: salesData.Land?.[0]?.high || "$350,000" },
+        { label: "Average", val: salesData.Land?.[0]?.avg || "$193,750" },
+        { label: "Total Volume", val: salesData.Land?.[0]?.total || "$3,441,500" }
       ]
     },
     {
       category: "CONDOS",
       icon: <Building2 className="w-8 h-8" />,
-      sold: "8 Sold",
+      sold: `${salesData.Condos?.[0]?.sold || 9} Sold`,
       stats: [
-        { label: "Lowest", val: "$512,000" },
-        { label: "Highest", val: "$1,800,000" },
-        { label: "Average", val: "$1,102,000" },
-        { label: "Total Volume", val: "$8,817,000" }
+        { label: "Lowest", val: salesData.Condos?.[0]?.low || "$500,000" },
+        { label: "Highest", val: salesData.Condos?.[0]?.high || "$1,500,000" },
+        { label: "Average", val: salesData.Condos?.[0]?.avg || "$1,000,000" },
+        { label: "Total Volume", val: salesData.Condos?.[0]?.total || "$8,405,000" }
       ]
     }
   ]
@@ -91,13 +91,13 @@ const SalesHistory = () => {
         </div>
       </section>
 
-      {/* 2024 Numbers Section */}
+      {/* 2025 Numbers Section */}
       <section className="py-32 px-6 bg-white relative overflow-hidden">
         <div className="max-w-[1500px] mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
              <div className="space-y-4">
                <span className="text-accent text-[11px] font-luxury-caps tracking-[0.4em]">Current Snapshot</span>
-               <h2 className="text-5xl md:text-8xl font-heading text-primary uppercase tracking-tighter">2024 Numbers</h2>
+               <h2 className="text-5xl md:text-8xl font-heading text-primary uppercase tracking-tighter">2025 Numbers</h2>
              </div>
              <div className="flex items-center gap-4 text-primary/30 font-bold bg-surface p-6 rounded-2xl border border-black/5">
                 <Calendar className="w-5 h-5 text-accent" />
@@ -106,7 +106,7 @@ const SalesHistory = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-             {stats2024.map((cat, i) => (
+             {stats2025.map((cat, i) => (
                 <motion.div
                   key={cat.category}
                   initial={{ opacity: 0, y: 30 }}

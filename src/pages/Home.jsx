@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useMemo } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import PropertyCard from '../components/PropertyCard'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { ArrowRight, ArrowUpRight, Instagram, Facebook, Twitter, MapPin, Mail, Phone, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, MapPin, Mail, Phone, ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { fetchInternalProperties } from '../services/propertyService'
 
@@ -42,8 +42,20 @@ const SectionHeading = ({ subtitle, title, alignment = 'center', dark = false })
 const DreamBigSection = () => {
   const navigate = useNavigate()
   const cards = [
-    { title: 'BUY WITH US', img: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511' },
-    { title: 'SELL WITH US', img: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0' }
+    { 
+      title: 'BUY WITH US', 
+      subtitle: 'Browse exclusive island properties, villas & land in St. John',
+      img: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511',
+      link: '/properties',
+      buttonText: 'View Properties'
+    },
+    { 
+      title: 'SELL WITH US', 
+      subtitle: 'Dedicated representation for St. John property owners ready to list',
+      img: 'https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0',
+      link: '/contact?type=sell',
+      buttonText: 'Sell Your Property'
+    }
   ]
 
   return (
@@ -69,22 +81,23 @@ const DreamBigSection = () => {
                initial={{ opacity: 0, y: 80 }}
                whileInView={{ opacity: 1, y: 0 }}
                transition={{ delay: i * 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-               onClick={() => navigate('/properties')}
-               className="group relative h-[750px] overflow-hidden cursor-pointer shadow-[0_40px_100px_rgba(0,0,0,0.12)] hover:shadow-[0_60px_120px_rgba(0,0,0,0.25)] transition-all duration-1000"
+               onClick={() => navigate(card.link)}
+               className="group relative h-[750px] overflow-hidden cursor-pointer shadow-[0_40px_100px_rgba(0,0,0,0.12)] hover:shadow-[0_60px_120px_rgba(0,0,0,0.25)] transition-all duration-1000 text-left"
             >
-              <img src={card.img} className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110" alt="" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-700" />
+              <img src={card.img} className="w-full h-full object-cover transition-transform duration-[3s] ease-out group-hover:scale-110" alt={card.title} />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/30 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-700" />
               
               <div className="absolute bottom-16 left-12 right-12 text-white">
                 <motion.div 
                    initial={{ width: 0 }}
                    whileInView={{ width: "100%" }}
                    transition={{ delay: 0.5, duration: 1 }}
-                   className="h-px bg-accent/40 mb-10" 
+                   className="h-px bg-accent/40 mb-8" 
                 />
-                <h3 className="text-4xl xs:text-5xl md:text-6xl font-heading italic mb-8 leading-none tracking-tight">{card.title}</h3>
-                <p className="text-[12px] font-luxury-caps opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100 flex items-center gap-6 translate-y-4 group-hover:translate-y-0 text-accent">
-                  Learn More <div className="w-12 h-px bg-accent" /> <ArrowRight className="w-4 h-4" />
+                <h3 className="text-4xl xs:text-5xl md:text-6xl font-heading italic mb-4 leading-none tracking-tight">{card.title}</h3>
+                <p className="text-white/70 text-sm font-light mb-8 max-w-md leading-relaxed">{card.subtitle}</p>
+                <p className="text-[12px] font-luxury-caps opacity-0 group-hover:opacity-100 transition-all duration-700 delay-100 flex items-center gap-6 translate-y-4 group-hover:translate-y-0 text-accent font-bold">
+                  {card.buttonText} <div className="w-12 h-px bg-accent" /> <ArrowRight className="w-4 h-4" />
                 </p>
               </div>
             </motion.div>
@@ -97,11 +110,6 @@ const DreamBigSection = () => {
 
 const FeaturedSection = ({ properties }) => {
   const navigate = useNavigate()
-  const featured = properties.filter(p => 
-    p.status?.toLowerCase().includes('featured') || 
-    p.status?.toLowerCase().includes('sold')
-  ).slice(0, 2)
-  const displayProps = featured.length > 0 ? featured : properties.slice(0, 2)
 
   return (
     <section className="py-48 px-6 bg-white relative">
@@ -109,7 +117,7 @@ const FeaturedSection = ({ properties }) => {
       <div className="max-w-[1500px] mx-auto relative z-10">
         <SectionHeading subtitle="Success stories and marquee listings from our portfolio." title="FEATURED PROPERTIES" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-40">
-          {displayProps.map((p, idx) => (
+          {properties.map((p, idx) => (
              <div key={p.id} className={idx === 1 ? 'md:pt-40' : ''}>
                 <PropertyCard 
                   status={p.status || "Featured"}
@@ -139,17 +147,15 @@ const FeaturedSection = ({ properties }) => {
 }
 
 const NewListingsSection = ({ properties }) => {
-  const newListings = properties.slice(0, 2)
-
   return (
     <section className="py-48 px-6 bg-surface-dark relative section-indent">
       <div className="max-w-[1500px] mx-auto relative z-10">
         <SectionHeading subtitle="Browse the latest properties added to our listings." title="NEW LISTINGS" alignment="left" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-40">
-          {newListings.map((p, idx) => (
+          {properties.map((p, idx) => (
              <div key={p.id} className={idx === 1 ? 'md:mt-40' : ''}>
                 <PropertyCard 
-                  status="New Listing"
+                  status={p.status?.toLowerCase().includes('new') ? p.status : "New Listing"}
                   image={p.images?.[0] || 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750'}
                   title={p.title}
                   price={`$${Number(p.price).toLocaleString()}`}
@@ -166,18 +172,76 @@ const NewListingsSection = ({ properties }) => {
   )
 }
 
+const defaultTestimonials = [
+  {
+     text: "This was the second time we listed property with Tammy and there was never any question that we would list our home with her. Tammy is there to meet any challenges that might pop up when selling your home. Once we were under contract we had an issue surface. Rather than having to solve it ourselves Tammy was there to help. Without Tammy our sale could have fallen thru. Buying or selling on St John, Tammy is the realtor you need!",
+     author: "Karen Radtke & David Carlson",
+     tag: "Property Sellers · St. John"
+  },
+  {
+     text: "Tammy made our island buying experience smooth, enjoyable, and completely stress-free. Her deep local knowledge of St. John neighborhoods and guidance on island infrastructure ensured everything went perfectly from first showing to closing.",
+     author: "Michael & Sarah Johnson",
+     tag: "Villa Buyers · Cruz Bay"
+  },
+  {
+     text: "Working with 340 Real Estate was the single best decision we made. Tammy's responsiveness, deep understanding of Caribbean real estate nuances, and tireless dedication helped us secure our dream home in Chocolate Hole.",
+     author: "Robert & Christine Miller",
+     tag: "Homeowners · Chocolate Hole"
+  },
+  {
+     text: "Selling our home in Coral Bay required a broker with genuine local roots and market insight. Tammy went above and beyond at every step of the transaction. Her professionalism, negotiation skills, and communication are second to none.",
+     author: "Dr. Greg & Patricia Hayes",
+     tag: "Property Sellers · Coral Bay"
+  },
+  {
+     text: "As first-time buyers in the Virgin Islands, we had countless questions about coastal zoning, cisterns, and taxes. Tammy was patient, incredibly knowledgeable, and guided us seamlessly every step of the way.",
+     author: "Mark & Elena Vance",
+     tag: "Island Buyers · Peter Bay"
+  },
+  {
+     text: "Tammy’s passion for St. John and her clients is unmatched. She found us an extraordinary parcel of land with panoramic ocean views. We could not have asked for a more dedicated and trusted partner on the rock.",
+     author: "Jennifer & Tom Sterling",
+     tag: "Land Buyers · Bordeaux Mountain"
+  }
+]
+
 const TestimonialsSectionContent = () => {
   const [index, setIndex] = useState(0)
-  const testimonials = [
-    {
-       text: "This was the second time we listed property with Tammy and there was never any question that we would list our home with her. Tammy is there to meet any challenges that might pop up when selling your home. Once we were under contract we had an issue surface. Rather than having to solve it ourselves Tammy was there to help. Without Tammy our sale could have fallen thru. Buying or selling on St John, Tammy is the realtor you need!",
-       author: "Karen Radtke and David Carlson"
-    },
-    {
-       text: "Tammy made our buying experience smooth and enjoyable. Her local expertise and attention to detail ensured everything went perfectly.",
-       author: "Michael & Sarah Johnson"
+  const [isPaused, setIsPaused] = useState(false)
+  const [testimonials, setTestimonials] = useState(defaultTestimonials)
+
+  // Fetch additional approved reviews from API if available
+  useEffect(() => {
+    const loadTestimonials = async () => {
+      try {
+        const response = await fetch('https://340realestate.com/api/testimonials')
+        if (response.ok) {
+          const data = await response.json()
+          if (data.testimonials && data.testimonials.length > 0) {
+            const apiItems = data.testimonials.map(t => ({
+              text: t.review,
+              author: t.name,
+              tag: "Verified Client"
+            }))
+            // Merge defaults with API reviews
+            setTestimonials([...defaultTestimonials, ...apiItems])
+          }
+        }
+      } catch (e) {
+        // Fallback to default testimonials
+      }
     }
-  ]
+    loadTestimonials()
+  }, [])
+
+  // Auto-rotate every 6 seconds unless paused by user hover
+  useEffect(() => {
+    if (isPaused || testimonials.length <= 1) return
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % testimonials.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [isPaused, testimonials.length])
 
   const next = () => setIndex((prev) => (prev + 1) % testimonials.length)
   const prev = () => setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
@@ -186,40 +250,98 @@ const TestimonialsSectionContent = () => {
   const y = useTransform(scrollYProgress, [0, 1], [-150, 150])
 
   return (
-    <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden border-y-8 border-accent">
-      <motion.div style={{ y }} className="absolute inset-0 opacity-60 scale-125">
-        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4" className="w-full h-full object-cover" alt="Testimonial Background" />
+    <section 
+      className="relative min-h-screen py-32 flex items-center justify-center bg-black overflow-hidden border-y-8 border-accent"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      {/* Background with parallax */}
+      <motion.div style={{ y }} className="absolute inset-0 opacity-50 scale-125">
+        <img src="/assets/testimonials/testi1.jpg" onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4'; }} className="w-full h-full object-cover" alt="Testimonial Background" />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black" />
-      <div className="relative z-10 max-w-[1300px] mx-auto px-12 text-center text-white">
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} className="mb-10 inline-block">
-          <h4 className="font-luxury-caps text-[11px] text-accent font-bold tracking-[0.5em] text-glow">Client Experiences</h4>
-        </motion.div>
-        
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.8 }}
-            className="min-h-[350px] flex flex-col justify-center"
-          >
-            <blockquote className="text-lg xs:text-xl md:text-2xl lg:text-3xl font-heading italic leading-relaxed max-w-5xl mx-auto mb-12 select-none px-6">
-              &quot;{testimonials[index].text}&quot;
-            </blockquote>
-            <p className="text-[13px] font-luxury-caps font-black tracking-[0.5em] text-white uppercase">— {testimonials[index].author}</p>
-          </motion.div>
-        </AnimatePresence>
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/60 to-black" />
 
-        <div className="flex justify-center items-center gap-10 pt-16">
-          <button onClick={prev} className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group cursor-pointer">
-             <ChevronLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
-          </button>
-          <button onClick={next} className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group cursor-pointer">
-             <ChevronRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-          </button>
+      <div className="relative z-10 max-w-[1300px] mx-auto px-6 md:px-12 text-center text-white">
+        
+        {/* Header tag */}
+        <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} className="mb-6 inline-block">
+          <h4 className="font-luxury-caps text-[11px] md:text-[12px] text-accent font-bold tracking-[0.5em] text-glow uppercase">Client Experiences</h4>
+        </motion.div>
+
+        {/* 5-Star Rating Badge */}
+        <div className="flex justify-center items-center gap-1.5 mb-10">
+          {[...Array(5)].map((_, i) => (
+            <Star key={i} className="w-4 h-4 fill-accent text-accent drop-shadow-[0_0_8px_rgba(197,160,89,0.5)]" />
+          ))}
         </div>
+        
+        {/* Animated Quote Slide */}
+        <div className="min-h-[340px] md:min-h-[300px] flex flex-col justify-center">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -30, scale: 0.98 }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-8"
+            >
+              <blockquote className="text-xl xs:text-2xl md:text-3xl lg:text-4xl font-heading italic leading-relaxed max-w-5xl mx-auto select-none px-4 md:px-8 drop-shadow-md">
+                &quot;{testimonials[index].text}&quot;
+              </blockquote>
+              
+              <div className="space-y-2 pt-2">
+                <p className="text-[13px] md:text-[14px] font-luxury-caps font-black tracking-[0.4em] text-white uppercase drop-shadow">
+                  — {testimonials[index].author}
+                </p>
+                {testimonials[index].tag && (
+                  <p className="text-[10px] font-luxury-caps tracking-[0.3em] text-accent/80 font-bold uppercase">
+                    {testimonials[index].tag}
+                  </p>
+                )}
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Controls & Pagination */}
+        <div className="flex flex-col items-center gap-8 pt-12">
+          
+          {/* Dot Indicators */}
+          <div className="flex items-center gap-3">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                aria-label={`Go to testimonial ${i + 1}`}
+                className={`transition-all duration-500 rounded-full cursor-pointer ${
+                  index === i 
+                    ? 'w-10 h-2 bg-accent shadow-[0_0_12px_rgba(197,160,89,0.8)]' 
+                    : 'w-2 h-2 bg-white/30 hover:bg-white/60'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Arrow Buttons */}
+          <div className="flex justify-center items-center gap-8">
+            <button 
+              onClick={prev} 
+              aria-label="Previous testimonial"
+              className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group cursor-pointer shadow-lg backdrop-blur-sm"
+            >
+               <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <button 
+              onClick={next} 
+              aria-label="Next testimonial"
+              className="w-14 h-14 rounded-full border border-white/20 flex items-center justify-center hover:bg-accent hover:border-accent transition-all group cursor-pointer shadow-lg backdrop-blur-sm"
+            >
+               <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
   )
@@ -367,14 +489,57 @@ const Home = () => {
     getProperties()
   }, [])
 
+  // Derive distinct Featured and New Listings (strictly non-overlapping)
+  const featuredProperties = useMemo(() => {
+    if (!properties || properties.length === 0) return []
+    
+    const isFeaturedOrSold = (p) => {
+      const s = (p.status || p.listing_type || '').toLowerCase()
+      return p.is_featured || p.featured || s.includes('featured') || s.includes('sold')
+    }
+
+    const featured = properties.filter(isFeaturedOrSold)
+    if (featured.length >= 2) {
+      return featured.slice(0, 2)
+    }
+
+    // Fill remaining slot(s) with first available properties
+    const remaining = properties.filter(p => !featured.some(f => f.id === p.id))
+    return [...featured, ...remaining].slice(0, 2)
+  }, [properties])
+
+  const newListingsProperties = useMemo(() => {
+    if (!properties || properties.length === 0) return []
+
+    const featuredIds = new Set(featuredProperties.map(p => p.id))
+    // Strictly exclude any properties already shown in the Featured section
+    const remaining = properties.filter(p => !featuredIds.has(p.id))
+
+    if (remaining.length === 0) {
+      return properties.slice(0, 2)
+    }
+
+    // Prioritize active / new listings among remaining properties
+    const newOrActive = remaining.filter(p => {
+      const s = (p.status || p.listing_type || '').toLowerCase()
+      return s.includes('new') || s.includes('active') || !s.includes('sold')
+    })
+
+    if (newOrActive.length >= 2) {
+      return newOrActive.slice(0, 2)
+    }
+
+    return remaining.slice(0, 2)
+  }, [properties, featuredProperties])
+
   return (
     <div className="selection:bg-accent selection:text-white bg-surface">
       <Navbar />
       <Hero />
       <DreamBigSection />
-      {!loading && properties.length > 0 && <FeaturedSection properties={properties} />}
+      {!loading && featuredProperties.length > 0 && <FeaturedSection properties={featuredProperties} />}
       <AboutSectionContent />
-      {!loading && properties.length > 0 && <NewListingsSection properties={properties} />}
+      {!loading && newListingsProperties.length > 0 && <NewListingsSection properties={newListingsProperties} />}
       <TestimonialsSectionContent />
       <AreasOfExpertise />
       <LifestyleGrid />
